@@ -1,0 +1,111 @@
+% !TEX TS-program = PythonTeX
+\documentclass{article}
+\usepackage{setup}
+\usepackage{pythontex}
+\usepackage{comment}
+
+\begin{document}
+\thispagestyle{empty}
+\begin{pycode}
+import random
+
+def reset():
+   ordered = [i for i in range(1, 17)]
+   holder = ordered
+   scrambled = []
+   while len(holder) < 72:
+     holder.append("")
+   while len(holder) > 0:
+     index = random.randint(0, len(holder) - 1)
+     scrambled.append(holder[index])
+     holder.pop(index)
+   return scrambled
+                 
+def print_grid():
+  print("\\begin{minipage}{7.8cm}")
+  print("\\begin{tikzpicture}")
+  x = 1
+  while x <= 6:
+    print(f"\\draw[line width = (7 - {x}) ^ 0.75 pt] (1.25*{x}, 22) -- (1.25*{x}, 0);")
+    x += 1
+  print("\\draw[line width = 0.2cm] (1.25, 21.9) -- (7.5, 21.9);")
+  y = 1
+  while y <= 12:
+    print(f"\\draw[line width = 2pt] (1.25, 0.944 ^ {y} * 44 - 22) -- (7.5, 0.944 ^ {y} * 44 - 22);")
+    if y == 3 or y == 5 or y == 7 or y == 9:
+      print(f"\draw[fill=black, line width = 0pt, opacity=0.4] (4.375, {(0.944 ** y + 0.944 ** (y-1)) * 22 - 22}) circle (0.25cm);")
+    elif y == 12:
+      print(f"\\draw[fill=black, line width = 0pt, opacity=0.4] (4.125, {(0.944 ** y + 0.944 ** (y-1)) * 22 - 22}) circle (0.15cm);")
+      print(f"\\draw[fill=black, line width = 0pt, opacity=0.4] (4.625, {(0.944 ** y + 0.944 ** (y-1)) * 22 - 22}) circle (0.15cm);")
+    y += 1
+  label_it()
+  print("\\end{tikzpicture}")
+  print("\\end{minipage}")
+
+
+def label_it():
+  numbers = reset()
+  index = 1
+  x = 1
+  while x <= 6:
+    y = 1
+    while y <= 12:
+      lab = numbers[index - 1]
+      if lab != "":
+        circles = f"\\draw[fill = white, line width = 1pt] ({1.25*x}, {0.944 ** y * 44 - 21.6}) circle (0.35cm);"
+        print(circles)
+        labels = f"\\node[anchor = north west, rotate = 90] at (1.25*{x} + 0.1, 0.944 ^ {y} * 44 - 21.6 + 0.2) {{{lab}}};"
+        print(labels)
+      index += 1
+      y += 1
+    x += 1
+    
+def print_reverse_grid():
+  print("\\begin{minipage}{7.8cm}")
+  print("\\begin{tikzpicture}")
+  x = 1
+  while x <= 6:
+    print(f"\\draw[line width = {x} ^ 0.75 pt] (1.25*{x}, 22) -- (1.25*{x}, 0);")
+    x += 1
+  print("\\draw[line width = 0.2cm] (1.25, 0.1) -- (7.5, 0.1);")
+  y = 1
+  while y <= 12:
+    print(f"\\draw[line width = 2pt] (1.25, 44 - 0.944 ^ {y} * 44) -- (7.5, 44 - 0.944 ^ {y} * 44);")
+    if y == 3 or y == 5 or y == 7 or y == 9:
+      print(f"\\draw[fill=black, line width = 0pt, opacity=0.4] (4.375, {44 - (0.944 ** y + 0.944 ** (y-1)) * 22}) circle (0.25cm);")
+    elif y == 12:
+      print(f"\\draw[fill=black, line width = 0pt, opacity=0.4] (4.125, {44 - (0.944 ** y + 0.944 ** (y-1)) * 22}) circle (0.15cm);")
+      print(f"\\draw[fill=black, line width = 0pt, opacity=0.4] (4.625, {44 - (0.944 ** y + 0.944 ** (y-1)) * 22}) circle (0.15cm);")
+    y += 1
+  label_it_backward()
+  print("\\end{tikzpicture}")
+  print("\\end{minipage}")
+  
+def label_it_backward():
+  numbers = reset()
+  index = 1
+  x = 1
+  while x <= 6:
+    y = 1
+    while y <= 12:
+      lab = numbers[index - 1]
+      if lab != "":
+        circles = f"\\draw[fill = white, line width = 1pt] ({1.25*x}, {43.6 - 0.944 ** y * 44}) circle (0.35cm);"
+        print(circles)
+        labels = f"\\node[anchor = north east, rotate = 90] at (1.25*{x} + 0.1, 43.6 - 0.944 ^ {y} * 44 - 0.2) {{{lab}}};"
+        print(labels)
+      index += 1
+      y += 1
+    x += 1
+
+count = 1
+while count <= 5:
+  print_grid()
+  print_reverse_grid()
+  print("\\clearpage")
+  print("\\thispagestyle{empty}")
+  count += 1
+
+\end{pycode}
+%\end{comment}
+\end{document}
