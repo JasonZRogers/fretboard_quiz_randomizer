@@ -28,12 +28,12 @@ def print_grid():
   while x <= 6:
     print(f"\\draw[line width = (7 - {x}) ^ 0.75 pt] (1.25*{x}, 22) -- (1.25*{x}, 0);")
     x += 1
-  print("\\draw[line width = 0.2cm] (1.25, 21.9) -- (7.5, 21.9);")
+  print(f"\\draw[line width = 0.2cm] (1.25, 21.9) -- (7.5, 21.9);")
   y = 1
   while y <= 12:
     print(f"\\draw[line width = 2pt] (1.25, 0.944 ^ {y} * 44 - 22) -- (7.5, 0.944 ^ {y} * 44 - 22);")
     if y == 3 or y == 5 or y == 7 or y == 9:
-      print(f"\draw[fill=black, line width = 0pt, opacity=0.4] (4.375, {(0.944 ** y + 0.944 ** (y-1)) * 22 - 22}) circle (0.25cm);")
+      print(f"\\draw[fill=black, line width = 0pt, opacity=0.4] (4.375, {(0.944 ** y + 0.944 ** (y-1)) * 22 - 22}) circle (0.25cm);")
     elif y == 12:
       print(f"\\draw[fill=black, line width = 0pt, opacity=0.4] (4.125, {(0.944 ** y + 0.944 ** (y-1)) * 22 - 22}) circle (0.15cm);")
       print(f"\\draw[fill=black, line width = 0pt, opacity=0.4] (4.625, {(0.944 ** y + 0.944 ** (y-1)) * 22 - 22}) circle (0.15cm);")
@@ -67,7 +67,7 @@ def print_reverse_grid():
   while x <= 6:
     print(f"\\draw[line width = {x} ^ 0.75 pt] (1.25*{x}, 22) -- (1.25*{x}, 0);")
     x += 1
-  print("\\draw[line width = 0.2cm] (1.25, 0.1) -- (7.5, 0.1);")
+  print(f"\\draw[line width = 0.2cm] (1.25, 0.1) -- (7.5, 0.1);")
   y = 1
   while y <= 12:
     print(f"\\draw[line width = 2pt] (1.25, 44 - 0.944 ^ {y} * 44) -- (7.5, 44 - 0.944 ^ {y} * 44);")
@@ -107,5 +107,4 @@ while count <= 5:
   count += 1
 
 \end{pycode}
-%\end{comment}
 \end{document}
