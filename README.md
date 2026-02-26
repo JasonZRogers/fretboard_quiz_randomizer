@@ -1,4 +1,5 @@
 # fretboard_quiz_randomizer
+![Fretboard Generator Preview](preview.png)
 A program to create printable PDF worksheets for guitar fretboard memorization practice.
 
 ### Project Overview
